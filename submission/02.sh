@@ -7,19 +7,19 @@ receipient=2MvLcssW49n9atmksjwg2ZCMsEMsoj3pzUP
 
 txn_id=$(bitcoin-cli -regtest decoderawtransaction $transaction | jq -r '.txid' )
 
-echo "getting the the vout 1..... with txn_id $txn_id"
+# echo "getting the the vout 1..... with txn_id $txn_id"
 
 utxo_vout_1=$(bitcoin-cli -regtest decoderawtransaction $transaction | jq -r '.vout | .[0] | .n' )
 
 utxo_vout__1_value=$(bitcoin-cli -regtest decoderawtransaction $transaction | jq -r '.vout | .[0] | .value' )
 
-echo "getting the the vout 1..... with $utxo_vout_1 and value: $utxo_vout__1_value"
+# echo "getting the the vout 1..... with $utxo_vout_1 and value: $utxo_vout__1_value"
 
 utxo_vout_2=$(bitcoin-cli -regtest decoderawtransaction $transaction | jq -r '.vout | .[1] | .n' )
 
 utxo_vout_2_value=$(bitcoin-cli -regtest decoderawtransaction $transaction | jq -r '.vout | .[1] | .value' )
 
-echo "getting the the vout 2..... with $utxo_vout_2 and value: $utxo_vout_2_value"
+# echo "getting the the vout 2..... with $utxo_vout_2 and value: $utxo_vout_2_value"
 
 new_raw_tx_hex=$(bitcoin-cli -regtest -named createrawtransaction inputs='''[ { "txid": "'$txn_id'", "vout": '$utxo_vout_1' }, { "txid": "'$txn_id'", "vout": '$utxo_vout_2' } ]''' outputs='''{ "'$receipient'": 0.20000000 }''' locktime=2041)
 
